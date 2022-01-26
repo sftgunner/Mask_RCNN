@@ -123,6 +123,10 @@ def display_instances(image, boxes, masks, class_ids, class_names,
     masked_image = image.astype(np.uint32).copy()
     for i in range(N):
         color = colors[i]
+        
+        # Filter out only the classes we're interested in
+        if not class_ids[i] in [3,4,6,8]:
+            continue
 
         # Bounding box
         if not np.any(boxes[i]):
@@ -162,6 +166,13 @@ def display_instances(image, boxes, masks, class_ids, class_names,
             verts = np.fliplr(verts) - 1
             p = Polygon(verts, facecolor="none", edgecolor=color)
             ax.add_patch(p)
+        
+        maskcoords = np.where(mask)
+        print("maskcoords")
+        print(maskcoords[0][-1])
+        print(maskcoords[1][-1])
+        ax.scatter(maskcoords[1][-1],maskcoords[0][-1],c='r')
+        
     ax.imshow(masked_image.astype(np.uint8))
     if auto_show:
         plt.show()
