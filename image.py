@@ -31,9 +31,22 @@ if not os.path.exists(COCO_MODEL_PATH):
     utils.download_trained_weights(COCO_MODEL_PATH)
 
 # Directory of images to run detection on
-IMAGE_DIR = os.path.join(ROOT_DIR, "images")
+# IMAGE_DIR = os.path.join(ROOT_DIR, "images")
 
-image_paths = ["cam2.jpg","cam2_2.jpg"]
+image_folder = "../Lane-Detection-Tracking/media/"
+
+image_paths = []
+
+for subdir, dirs, files in os.walk(os.path.expanduser(image_folder)):
+    for file in files:
+        filename, file_extension = os.path.splitext(file)
+        if (file_extension == ".jpg"):
+            file = os.path.join(subdir,file)
+            image_paths.append(file)
+
+# image_paths = ["cam2.jpg","cam2_2.jpg"]
+
+print(image_paths)
 
 class InferenceConfig(coco.CocoConfig):
     # Set batch size to 1 since we'll be running inference on
