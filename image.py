@@ -6,6 +6,11 @@ import numpy as np
 import skimage.io
 import matplotlib
 import matplotlib.pyplot as plt
+import argparse
+
+parser = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+parser.add_argument('--input-folder', help='the full path of the input directory', nargs='?',default="../Lane-Detection-Tracking/media/")
+args,unknownargs = parser.parse_known_args()
 
 # Root directory of the project
 ROOT_DIR = os.path.abspath("")
@@ -33,7 +38,7 @@ if not os.path.exists(COCO_MODEL_PATH):
 # Directory of images to run detection on
 # IMAGE_DIR = os.path.join(ROOT_DIR, "images")
 
-image_folder = "../Lane-Detection-Tracking/media/"
+image_folder = args.input_folder
 
 image_paths = []
 
